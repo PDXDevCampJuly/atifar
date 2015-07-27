@@ -4,15 +4,19 @@ def answer(prompt):
     inp = input(prompt)
     return inp
 
-" said they were offensive."
+# Save the beginning of the article
 article = "An Univision poll seeking "
 
+# Get user to provide their input
 nationality = answer("Provide a name of a nationality: ")
 
+# Append the user input to the article
 article += nationality
 
+# Get more user input
 politician = answer("Provide a politician's name: ")
 
+# Continue appending to the article
 article = article + " views on " + politician + "'s prickly comments about "
 
 country = answer("Name a country: ")
@@ -27,4 +31,5 @@ percentage = answer("Pick a number between 0 and 100:")
 
 article = article + percentage + " percent said they were offensive."
 
+# Print the final article
 print("\n\n" + article + "\n\n")
