@@ -1,0 +1,14 @@
+
+*.pyc
+
+.idea/.name
+
+.idea/atifar.iml
+
+.idea/misc.xml
+
+.idea/modules.xml
+
+.idea/vcs.xml
+
+.idea/workspace.xml
