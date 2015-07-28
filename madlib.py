@@ -31,5 +31,5 @@ percentage = answer("Pick a number between 0 and 100:")
 
 article = article + percentage + " percent said they were offensive."
 
-# Print the final article
+# Print the final articleJ
 print("\n\n" + article + "\n\n")
