@@ -39,5 +39,5 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-n", "--number", type=int, help="number to factor", default=60)
     args = parser.parse_args()
-    number = int(args.number)
+    number = args.number
     factor(number)
