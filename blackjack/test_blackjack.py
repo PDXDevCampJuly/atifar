@@ -15,8 +15,8 @@ def random_tests_of_deck_and_player():
 
 def test_blackjack():
     gameboard = Blackjack()
-    print(gameboard.dealer.dealers_goal)
-    gameboard.tell_dealer_value(20)
-    print(gameboard.dealer.dealers_goal)
+    # print(gameboard.dealer.dealers_goal)
+    # gameboard.tell_dealer_value(20)
+    # print(gameboard.dealer.dealers_goal)
 
 test_blackjack()
