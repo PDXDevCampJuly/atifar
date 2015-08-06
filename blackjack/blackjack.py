@@ -39,11 +39,6 @@ class Deck:
         return self.cards.pop()
 
 
-    def is_empty(self):
-        """ Return True if the deck has been exhausted."""
-        return len(self.cards) == 0
-
-
 class Hand:
     """A class that holds the set of cards of a player. It maintains the value of the hand."""
     def __init__(self):
@@ -98,12 +93,12 @@ class Hand:
     def present_hand(self, name):
         """Print the entire hand and the current value of it on the screen."""
         print("\n{}'s hand's value is {}".format(name, self.value))
-        for card in self.cards[:-1]:
-            card.print_card()
-            print(", ", end = "")
-        self.cards[-1].print_card()
-        print()
-
+        if len(self.cards) > 0:
+            for card in self.cards[:-1]:
+                card.print_card()
+                print(", ", end = "")
+            self.cards[-1].print_card()
+            print()
 
 
 class Player:
@@ -132,7 +127,16 @@ class Player:
         return self.hand.value > 21
 
 
+class Dealer(Player):
+    """A class that represents the dealer."""
+    def __init__(self, dealer_name="Dealer"):
+        Player.__init__(self, dealer_name)
 
+
+    def want_another_card(self):
+        """Returns True if dealer's goal has not been met yet.
+        """
+        return self.hand.value <= 17
 
 
 class Blackjack:
@@ -146,7 +150,6 @@ class Blackjack:
         self.dealer = Dealer()
         #Generate the deck.
         self.deck = Deck()
-        self.run_game()
 
     #Ask user how many players will participate. Store this number in Blackjack.
     def generate_players(self, num_players):
@@ -163,14 +166,14 @@ class Blackjack:
         #Shuffle deck of cards
         self.deck.generate_shuffled_deck()
         #Generate players
-        print("Welcome to this blackjack table.")
+        print("Welcome to this blackjack table.\n")
         self.generate_players(int(input("How many people are playing!: ")))
         #Deal in players and dealer
         print("Let's deal in everyone.")
         self.deal_in_players()
         #Display everyone's hand
         self.show_opening_hand()
-
+        print("Let's play.")
         #Iterate over all players
         for player in self.players:
             print()
@@ -184,12 +187,12 @@ class Blackjack:
                     player.hand.present_hand(player.player_name)
                 else:
                     break
+            if player.is_busted():
+                print("{} is busted.".format(player.player_name))
 
-        #Update dealer's goal. Pass each non-busted player's hand value to dealer.
+        #Update list of players still in the game
         for player in self.players:
-            if not player.is_busted():
-                self.tell_dealer_value(player.hand.value)
-            else:
+            if player.is_busted():
                 self.players_still_alive.remove(player)
 
         #It's the dealer's turn to play.
@@ -209,14 +212,18 @@ class Blackjack:
 
     def wrap_up_game(self):
         """Check who won. Display the end result."""
-        #If the dealer won, ...
-        if self.dealer.is_busted():
-            num_of_players_still_alive = len(self.players_still_alive)
-            if num_of_players_still_alive > 0:
-                print(("The winners are: " if num_of_players_still_alive > 1 else "The winner is: ") +
-                      ", ".join([player.player_name for player in self.players_still_alive]))
-            else:
-                print("Nobody wins.")
+        #If a player got 21, they won...
+        winning_player = []
+        for player in self.players_still_alive:
+            if player.hand.value == 21 or self.dealer.hand.value > 21 or player.hand.value > self.dealer.hand.value:
+                winning_player.append(player)
+            #check who didn't get 21, but is higher then the dealer
+        number_of_winning_players = len(winning_player)
+        if number_of_winning_players > 0:
+            print(("\nThe winners are: " if number_of_winning_players > 1 else "\nThe winner is: ") +
+                  ", ".join([player.player_name for player in winning_player]))
+        elif self.dealer.is_busted():
+            print("Nobody wins.")
         else:
             print("The dealer wins.")
 
@@ -232,42 +239,132 @@ class Blackjack:
     #Display everyone's hand
     def show_opening_hand(self):
         for gamer in self.players:
-            print("{} has".format(gamer.player_name), end = " ")
             gamer.hand.present_hand(gamer.player_name)
-            print()
         #Display dealer's hand.
-        print("{} has shown the".format(self.dealer.player_name), end = " ")
-        self.dealer.hand.present_hand(self.dealer.player_name)
         print()
-
-    #updates the dealer on the highest value
-    def tell_dealer_value(self, value):
-        self.dealer.update_highest_hand_value(value)
-    #Iterate over all players.
-    # Let each player be dealt cards until they pass or go bust. After each player stops,
-    # update highest value in the game.
-
-    #Let the dealer be dealt more cards until it stops.
-
-    #Check all players' hand and dealer's hand to see who won or lost
-    #Announce reults.
+        self.dealer.hand.present_hand(self.dealer.player_name)
+        print("-" * 30)
 
 
-class Dealer(Player):
-    """A class that represents the dealer."""
-    def __init__(self, dealer_name="Dealer"):
-        Player.__init__(self, dealer_name)
-        self.dealers_goal = 17
+##############################################################################
+# BEGIN TEST CODE
+def test_card():
+    print("Testing Card")
+    joker = Card("red","joker")
+    print("The face: " + joker.face)
+    print("the suit: " + joker.suit)
+    print("Testing print_card")
+    joker.print_card()
+    print()
+
+def test_deck():
+    print("\nTesting Deck")
+    tarot = Deck()
+    print("Number of cards in deck, should be empty:", len(tarot.cards))
+    tarot.generate_shuffled_deck()
+    print("Number of cards in deck, should be 52:", len(tarot.cards))
+    print("Testing draw_card()")
+    random_card = tarot.draw_card()
+    random_card.print_card()
+    print()
+    print("Number of cards in deck, should be 51:", len(tarot.cards))
+
+def test_hand():
+    print("\nTesting Hand")
+    poker = Hand()
+    print("Number of cards in hand, should be empty: ", len(poker.cards))
+    print("Testing present_hand of James on empty hand")
+    poker.present_hand("James")
+    print("Initial value of hand, should be zero:", poker.value)
+    print("Checking add_card, adding ace of hearts ")
+    poker.add_card(Card("Hearts","A"))
+    poker.present_hand("James")
+    print("Value of hand, should be 11:", poker.value)
+    print("Checking add_card, adding ace of clubs ")
+    poker.add_card(Card("Clubs","A"))
+    poker.present_hand("James")
+    print("Value of hand, should be 12:", poker.value)
+    print("Checking add_card, adding king of clubs ")
+    poker.add_card(Card("Clubs","K"))
+    poker.present_hand("James")
+    print("Value of hand, should be 12:", poker.value)
+
+def test_player():
+    print("\nTesting Player")
+    print("Creating player Mary.")
+    mary = Player("Mary")
+    print("The player's name is '{}'".format(mary.player_name))
+    print("Player Mary has the following hand:", mary.hand)
+    print("Checking is_busted(), should be False.", mary.is_busted())
+    print("Adding three cards, adding king of hearts, king of clubs, king of diamonds.")
+    mary.hand.add_card(Card("Hearts","K"))
+    mary.hand.add_card(Card("Clubs","K"))
+    mary.hand.add_card(Card("Diamonds","K"))
+    print("Checking is_busted(), should be True.", mary.is_busted())
+    #Player.want_another_card() will be tested as part of Blackjack.run_game()
+
+def test_dealer():
+    print("\nTesting Dealer")
+    print("Creating dealer with default name.")
+    mary = Dealer()
+    print("The dealer's name is '{}'".format(mary.player_name))
+    print("Dealer has the following hand:", mary.hand)
+    print("Testing want_another_card()  should be True", mary.want_another_card())
+    print("Checking is_busted(), should be False.", mary.is_busted())
+    print("Adding one cards, adding king of hearts")
+    mary.hand.add_card(Card("Hearts","K"))
+    mary.hand.present_hand("Dealer")
+    print("Testing want_another_card() should be True", mary.want_another_card())
+    print("Adding one cards, adding king of clubs")
+    mary.hand.add_card(Card("Clubs","K"))
+    mary.hand.present_hand("Dealer")
+    print("Testing want_another_card, should be False", mary.want_another_card())
+    print("Adding one cards, adding king of Spades")
+    mary.hand.add_card(Card("Spades","K"))
+    mary.hand.present_hand("Dealer")
+    print("Checking is_busted(), should be True.", mary.is_busted())
 
 
-    #This will update the highest hand value in the game so that the dealer program knows it.
-    def update_highest_hand_value(self, value):
-        if value > self.dealers_goal:
-            self.dealers_goal = value
+def test_blackjack():
+    #Create blackjack object
+    game = Blackjack()
+    #Check that attributes initialized correctly
+    print("Number of players (should be 0):", len(game.players))
+    print("Number of players_still_alive (should be 0):", len(game.players_still_alive))
+    print("Dealer object:", game.dealer)
+    print("Deck object):", game.deck)
+    # game.generate_players() has been tested interactively
+    print("checking deal in players, with manually added players")
+    game.players = [Player("Jeff"), Player("Deno"), Player("Jane")]
+    game.players_still_alive = game.players[:]
+    game.deal_in_players()
+    print("Number of players (should be 3):", len(game.players))
+    print("Number of players_still_alive (should be 3):", len(game.players_still_alive))
 
 
-    def want_another_card(self):
-        """Returns True if dealer's goal has not been met yet.
-        """
-        return self.hand.value <= self.dealers_goal
 
+
+
+
+
+
+    #Check generate_players()
+
+    #Check run_game()
+
+
+
+
+
+
+
+# END TEST CODE
+##############################################################################
+
+
+
+
+
+if __name__ == "__main__":
+    game = Blackjack()
+    game.run_game()
