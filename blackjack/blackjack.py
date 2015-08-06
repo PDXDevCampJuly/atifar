@@ -13,7 +13,7 @@ class Card:
 
     def print_card(self):
         """ This will print out the card to the screen."""
-        print("{} of {}".format(self.face, self.suit), end="; ")
+        print("{} of {}".format(self.face, self.suit), end="")
 
 
 class Deck:
@@ -97,8 +97,10 @@ class Hand:
 
     def present_hand(self):
         """Print the entire hand and the current value of it on the screen."""
-        for card in self.cards:
+        for card in self.cards[:-1]:
             card.print_card()
+            print(", ", end = "")
+        self.cards[-1].print_card()
         print("\nThe hand's value is {}".format(self.value))
 
 
@@ -136,20 +138,23 @@ class Blackjack:
     """A class for the blackjack game. It controls the flow of the entire game."""
     def __init__(self):
         self.players =[]
+        #Generate dealer
+        self.dealer = Dealer()
         #Generate the deck.
         self.deck = Deck()
         self.deck.generate_shuffled_deck()
         #Generate players
         self.generate_players(int(input("How many people are playing!: ")))
-        #Generate dealer
-
+        self.deal_in_players()
+        #Display everyone's hand
+        self.show_opening_hand()
 
     #Ask user how many players will participate. Store this number in Blackjack.
     def generate_players(self, num_players):
         """This function will generate all the human players in the game"""
         #Get player's names. Create list of players. Create dealer.
-        for people in range(0, num_players):
-            name = input("Name of "+ (people +1 ) + " player: ")
+        for people in range(num_players):
+            name = input("Name of " + str(people + 1) + " player: ")
             self.players.append(Player(name))
 
 
@@ -158,17 +163,27 @@ class Blackjack:
         for gamers in self.players:
             gamers.hand.add_card(self.deck.draw_card())
             gamers.hand.add_card(self.deck.draw_card())
-
-
-    #Deal dealer one card
+        #Deal dealer one card
+        self.dealer.hand.add_card((self.deck.draw_card()))
 
     #Display everyone's hand
+    def show_opening_hand(self):
+        for gamer in self.players:
+            print("{} has".format(gamer.player_name), end = " ")
+            gamer.hand.present_hand()
+            print()
+        #Display dealer's hand.
+        print("{} has shown the".format(self.dealer.player_name), end = " ")
+        self.dealer.hand.present_hand()
+        print()
 
+    #updates the dealer on the highest value
+    def tell_dealer_value(self, value):
+        self.dealer.update_highest_hand_value(value)
     #Iterate over all players.
     # Let each player be dealt cards until they pass or go bust. After each player stops,
     # update highest value in the game.
 
-    #Display dealer's hand.
     #Let the dealer be dealt more cards until it stops.
 
     #Check all players' hand and dealer's hand to see who won or lost
@@ -177,10 +192,15 @@ class Blackjack:
 
 class Dealer(Player):
     """A class that represents the dealer."""
-    def __init__(self, dealer_name="dealer"):
+    def __init__(self, dealer_name="Dealer"):
         Player.__init__(self, dealer_name)
-        self.highest_hand_value = 0
+        self.dealers_goal = 17
 
+
+    #This will update the highest hand value in the game so that the dealer program knows it.
+    def update_highest_hand_value(self, value):
+        if value > self.dealers_goal:
+            self.dealers_goal = value
 
     def run_dealer(self):
         """Implement dealer's behavior."""
