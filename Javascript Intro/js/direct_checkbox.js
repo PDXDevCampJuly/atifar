@@ -54,7 +54,7 @@ function populateInventoryDOM() {
         var stockCol = document.createElement('td');
         stockCol.className = materials[i].inStock();
         var stockText = document.createTextNode(materials[i].stock);
-        stockCol.text = stockText;
+        stockCol.appendChild(stockText);
         newProdRow.appendChild(stockCol);
 
         inventory.appendChild(newProdRow);
@@ -154,7 +154,6 @@ function addNewStock() {
         return;
     }
 
-
     var newProdRow = document.createElement('tr');
     var checkboxcell = document.createElement('td');
     var checkbox = document.createElement('input');
@@ -179,33 +178,21 @@ function addNewStock() {
     var stockCol = document.createElement('td');
     stockCol.className = true;
     var stockText = document.createTextNode('10');
-    stockCol.text = stockText;
+    stockCol.appendChild(stockText);
     newProdRow.appendChild(stockCol);
 
+    // Clear material input box
+    var materialBox = document.getElementById('material');
+    materialBox.value = '';
+
+    // Clear price input box
+    var priceBox = document.getElementById('price');
+    priceBox.value = '';
+
+    // Add new inventory table row to webpage
     inventory.appendChild(newProdRow);
+
+    // Store new inventory item in list
     materials.push(new Product(material, 10, parseInt(price)));
 
-// OLD FUNCTION
-//    material = document.getElementById("material").value;
-//    price = document.getElementById("price").value;
-//
-//    if (material == "" || price == "" || isNaN(price)) {
-//        return;
-//    }
-//
-//    // Add new product to materials list; default new item stock is 10
-//    var new_stock = "10";
-//    materials.push(new Product(material, parseInt(new_stock), parseInt(price)));
-//
-//    var newRow = '<tr>';
-//    newRow += "<td><input type='checkbox'/></td>";
-//    newRow += '<td>' + material + '</td>';
-//    newRow += '<td>$' + price + '</td>';
-//    newRow += '<td>' + new_stock + '</td>';
-//    newRow += '</tr>';
-//
-//    document.getElementById("material").value = "";
-//    document.getElementById("price").value = "";
-//
-//    inventory.innerHTML += newRow;
 }
