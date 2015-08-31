@@ -3,7 +3,7 @@
  */
 
 // Fetch the name for localStorage, which would be set by the join page
-var validName = localStorage.getItem("name");
+var validName = sessionStorage.getItem("name");
 
 // If a valid name was fetched above, update the gallery tagline with the
 // name from the join page.

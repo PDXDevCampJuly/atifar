@@ -90,7 +90,7 @@ function validateInput(e) {
 
     // When all form fields are valid, store name to use on gallery page
     else {
-        localStorage.setItem('name', nameBox.value);
+        sessionStorage.setItem('name', nameBox.value);
     }
 }
 
