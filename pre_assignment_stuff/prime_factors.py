@@ -1,7 +1,9 @@
 # This script calculates the prime factorization of a command line integer argument,
 # The factorizaton is then printed.
 
-import argparse, primes
+import argparse
+
+from pre_assignment_stuff import primes
 
 
 def factor(number):
