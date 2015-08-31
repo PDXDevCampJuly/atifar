@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>Constructive &amp; Co.</title>
+    <link rel="stylesheet" href="css/red_test.css" />
+</head>
+<body>
+    <main>
+        <h1>Construction &amp; Co.</h1>
+        <span id="greeting"></span>
+        <p>For all orders and inquiries please call
+            <em>555-3344</em>
+        </p>
+    </main>
+
+<script>
+    var today = new Date();
+    var hourNow = today.getHours();
+    var greetingHTML;
+
+    if (hourNow > 18) {
+        greetingHTML = '<h3>Good Evening!</h3>';
+    } else if (hourNow > 12) {
+        greetingHTML = '<h3>Good Afternoon!</h3>';
+    } else if (hourNow > 4) {
+        greetingHTML = '<h3>Good Morning!</h3>';
+    } else {
+        greetingHTML = '<h3>Welcome!</h3>';
+    }
+
+    greeting = document.getElementById('greeting');
+    greeting.innerHTML = greetingHTML;
+</script>
+</body>
+</html>
+
+
