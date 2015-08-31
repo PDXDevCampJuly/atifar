@@ -40,7 +40,7 @@ class AttackTest(unittest.TestCase):
 
         # Call function
         new_health = self.new_monster.attack(12)
-        
+
         self.assertEqual(new_health, -2,
                          "Expected 3 for updated health.")
         self.assertEqual(self.new_monster.status, "K.O.'d",
