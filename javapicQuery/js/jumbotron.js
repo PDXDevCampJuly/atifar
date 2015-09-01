@@ -20,7 +20,7 @@ var jumboPics = [
 var jumboPicIdx = 4;
 
 // Grab the jumbotron element
-var jumbotronDiv = document.getElementById("jumbotron");
+var $jumbotronDiv = $('div#jumbotron');
 
 function jumbotronRotatePic() {
     // Update the array index
@@ -30,12 +30,14 @@ function jumbotronRotatePic() {
     var picUrl = "url(" + jumboPics[jumboPicIdx] + ")";
 
     // Update the background picture
-    jumbotronDiv.style.backgroundImage = picUrl;
+    $jumbotronDiv.css('backgroundImage', picUrl);
 }
 
 // Rotate through first ten images in the jumbotron, switching images every
 // 20 seconds.
-setInterval(function() {
-    jumbotronRotatePic();
-}, 20000);
+$(function() {
+    setInterval(function() {
+        jumbotronRotatePic();
+    }, 2000);
+});
 
