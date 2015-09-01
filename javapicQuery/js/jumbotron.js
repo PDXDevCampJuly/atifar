@@ -38,6 +38,6 @@ function jumbotronRotatePic() {
 $(function() {
     setInterval(function() {
         jumbotronRotatePic();
-    }, 2000);
+    }, 20000);
 });
 
