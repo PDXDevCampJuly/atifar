@@ -67,28 +67,28 @@ for (var i = 1; i < 61; i++) {
     var imagePath = "images/pdxcg_" + imageNumber + ".jpg";
 
     // Grab the section that holds the image gallery
-    var gallerySection = document.getElementById("gallery");
+    $('#gallery').prepend('<li><img src =""/></li>');
+    $('#gallery li:first img').attr('src', imagePath);
 
-    // Grab entire page
-    var galleryPage = document.getElementsByTagName("html")[0];
-
-
-    // Build the new list item with the image
-    var newImageInCellStr = '<li><img src=" + imagePath + "/></li>';
-    var newImageCell = document.createElement("li");
-    var newImage = document.createElement("img");
-    newImage.src = imagePath;
-    newImageCell.appendChild(newImage);
+    //var newImageInCellStr = '<li><img src=" + imagePath + "/></li>';
+    //var newImageCell = document.createElement("li");
+    //var newImage = document.createElement("img");
+    //newImage.src = imagePath;
+    //newImageCell.appendChild(newImage);
 
     // Add the list item to the gallery
-    gallerySection.appendChild(newImageCell);
+    //gallerySection.appendChild(newImageCell);
 
     // Add event listener - click on an image
-    newImage.addEventListener('click', function (e) {
-        showLargeImage(e);
-    }, eventFlowCapture);
+    //newImage.addEventListener('click', function (e) {
+    //    showLargeImage(e);
+    //}, eventFlowCapture);
 
 }
+
+// Grab entire page
+var galleryPage = document.getElementsByTagName("html")[0];
+
 
 // Add event listener - click anywhere on page
 galleryPage.addEventListener('click', function (e) {
