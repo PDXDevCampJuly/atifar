@@ -2,100 +2,64 @@
  * Created by Ati on 8/27/15.
  */
 
-// Grab the form element
-var joinForm = document.getElementById("signup");
+$(function () {
+    // Add an 'action' attribute to load the gallery page upon form submission
+    $('#signup').attr('action', 'gallery.html');
+    // Add listener to catch form submission
+    $('#signup').submit(function(e) {
+        validateInput(e);
+    });
+});
 
-// Add an 'action' attribute to load the gallery page upon form submission
-joinForm.setAttribute("action", "gallery.html");
-
-// Grab the list of input element of the form (using querySelectorAll)
-var joinFormInputs = document.querySelectorAll("#signup input");
-
-var nameBox = joinFormInputs[0];
-var usernameBox = joinFormInputs[1];
-var emailBox = joinFormInputs[2];
-var submitButton = joinFormInputs[3];
-
-// Event handler - click on submit button
 function validateInput(e) {
-    var nameRE = /[a-z]+/i;
+    var nameRE = /^([a-zA-Z]+)$/;
     var emailRE = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
+    var name = $('#signup input:eq(0)').val();
+    var username = $('#signup input:eq(1)').val();
+    var email = $('#signup input:eq(2)').val();
 
     // Remove any previous popups
-    var popups = document.getElementsByClassName("popup");
-    for (i=0; i < popups.length; i++) {
-        joinForm.removeChild(popups[i]);
-    }
+    $('.popup').remove();
 
     // Validate name - at least one alphabetic character (case insensitive)
-    if (!nameRE.test(nameBox.value)) {
-
-        // Create a new message box
-        var newMsgBox = document.createElement("p");
-        // Create the text node of the message
-        var newText = document.createTextNode("Name can't be empty and must consist of only letters.");
-        // Attach new text node to message box
-        newMsgBox.appendChild(newText);
-        // Insert the message box in DOM tree
-        nameBox.parentNode.insertBefore(newMsgBox, nameBox.nextSibling);
+    if (!nameRE.test(name)) {
+        // Create a new message paragraph
+        $('#signup input:eq(0)').after('<p class="popup">"Name cannot be empty and must consist of only letters."</p>');
         // Make the text inside message box red and smaller
-        newMsgBox.style.color = "red";
-        newMsgBox.style.fontSize = "0.6em";
-        // Attach a class to the message box so it can be removed.
-        newMsgBox.setAttribute("class", "popup");
-
-        nameBox.focus();
+        $('.popup').css({
+            'fontSize': '0.6em',
+            'color': 'red'
+        });
         e.preventDefault();
     }
 
-    // Validate username - at least one alphabetic character (case insensitive)
-     else if (!nameRE.test(usernameBox.value)) {
-        // Create a new message box
-        var newMsgBox = document.createElement("p");
-        // Create the text node of the message
-        var newText = document.createTextNode("Username can't be empty and must consist of only letters.");
-        // Attach new text node to message box
-        newMsgBox.appendChild(newText);
-        // Insert the message box in DOM tree
-        usernameBox.parentNode.insertBefore(newMsgBox, usernameBox.nextSibling);
+        // Validate username - at least one alphabetic character (case insensitive)
+     if (!nameRE.test(username)) {
+        // Create a new message paragraph
+        $('#signup input:eq(1)').after('<p class="popup">"Username cannot be empty and must consist of only letters."</p>');
         // Make the text inside message box red and smaller
-        newMsgBox.style.color = "red";
-        newMsgBox.style.fontSize = "0.6em";
-        // Attach a class to the message box so it can be removed.
-        newMsgBox.setAttribute("class", "popup");
-
-        usernameBox.focus();
+        $('.popup').css({
+            'fontSize': '0.6em',
+            'color': 'red'
+        });
         e.preventDefault();
-    }
+     }
 
-    // Validate email
-    else if (!emailRE.test(emailBox.value)) {
-        // Create a new message box
-        var newMsgBox = document.createElement("p");
-        // Create the text node of the message
-        var newText = document.createTextNode("Email must be of proper form.");
-        // Attach new text node to message box
-        newMsgBox.appendChild(newText);
-        // Insert the message box in DOM tree
-        emailBox.parentNode.insertBefore(newMsgBox, emailBox.nextSibling);
+     // Validate email
+     if (!emailRE.test(email)) {
+        // Create a new message paragraph
+        $('#signup input:eq(2)').after('<p class="popup">"Email must be of proper form."</p>');
         // Make the text inside message box red and smaller
-        newMsgBox.style.color = "red";
-        newMsgBox.style.fontSize = "0.6em";
-        // Attach a class to the message box so it can be removed.
-        newMsgBox.setAttribute("class", "popup");
-
-        emailBox.focus();
+        $('.popup').css({
+            'fontSize': '0.6em',
+            'color': 'red'
+        });
         e.preventDefault();
-    }
+     }
 
-    // When all form fields are valid, store name to use on gallery page
-    else {
-        sessionStorage.setItem('name', nameBox.value);
+    // When the name field is valid, store name to use on gallery page
+    if (nameRE.test(name)) {
+        sessionStorage.setItem('name', name);
     }
 }
-
-// Add event listener - click on submit button
-submitButton.addEventListener('click', function (e) {
-    validateInput(e);
-}, false);
 

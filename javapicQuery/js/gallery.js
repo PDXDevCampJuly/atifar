@@ -2,7 +2,11 @@
  * Created by Ati on 8/28/15.
  */
 
-// Fetch the name for localStorage, which would be set by the join page
+$(function () {
+        populateGallery();
+});
+
+// Fetch the name for sessionStorage, which would be set by the join page
 var validName = sessionStorage.getItem("name");
 
 // If a valid name was fetched above, update the gallery tagline with the
@@ -13,12 +17,6 @@ if(validName != null) {
     var customTagline = taglineText.replace("tiffany", validName);
     taglineSpan[0].textContent = customTagline;
 }
-
-// Grab the section that holds the image gallery
-var gallerySection = document.getElementById("gallery");
-
-// Grab entire page
-var galleryPage = document.getElementsByTagName("html")[0];
 
 // Grab container for large image preview
 var largeImageDiv = document.getElementById("image_show");
@@ -68,7 +66,15 @@ for (var i = 1; i < 61; i++) {
     }
     var imagePath = "images/pdxcg_" + imageNumber + ".jpg";
 
+    // Grab the section that holds the image gallery
+    var gallerySection = document.getElementById("gallery");
+
+    // Grab entire page
+    var galleryPage = document.getElementsByTagName("html")[0];
+
+
     // Build the new list item with the image
+    var newImageInCellStr = '<li><img src=" + imagePath + "/></li>';
     var newImageCell = document.createElement("li");
     var newImage = document.createElement("img");
     newImage.src = imagePath;
@@ -81,6 +87,7 @@ for (var i = 1; i < 61; i++) {
     newImage.addEventListener('click', function (e) {
         showLargeImage(e);
     }, eventFlowCapture);
+
 }
 
 // Add event listener - click anywhere on page
