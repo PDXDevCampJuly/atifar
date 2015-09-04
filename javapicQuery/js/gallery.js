@@ -2,96 +2,68 @@
  * Created by Ati on 8/28/15.
  */
 
-$(function () {
-        populateGallery();
-});
+function populateGallery() {
+    // Loop over images 1-60 in the images folder
+    for (var i = 1; i < 61; i++) {
+        // Build the image file path
+        var imageNumber = i.toString();
+        if (imageNumber.length == 1) {
+            imageNumber = "0" + imageNumber;
+        }
+        var imagePath = "images/pdxcg_" + imageNumber + ".jpg";
 
-// Fetch the name for sessionStorage, which would be set by the join page
-var validName = sessionStorage.getItem("name");
+        // Grab the section that holds the image gallery
+        //$('#gallery').prepend('<li><img src =""/></li>');
+        //$('#gallery li:first img').attr('src', imagePath);
+        $('#gallery').append('<li><img src =""/></li>');
+        $('#gallery li:last img').attr('src', imagePath);
 
-// If a valid name was fetched above, update the gallery tagline with the
-// name from the join page.
-if(validName != null) {
-    var taglineSpan = document.getElementsByClassName("tagline");
-    var taglineText = taglineSpan[0].textContent;
-    var customTagline = taglineText.replace("tiffany", validName);
-    taglineSpan[0].textContent = customTagline;
+    }
+
+    $('img').on('click', function (e) {
+        showLargeImage(e);
+    });
+
+    $('body').on('click', function (e) {
+        removeLargeImage(e);
+    });
 }
 
-// Grab container for large image preview
-var largeImageDiv = document.getElementById("image_show");
-
-// The event flow on this page defaults to bubble. Once an image is shown in
-// enlarged preview, the event flow is set to capture by the showLargeImage
-// handler, so that the next click anywhere on the page is captured by the
-// removeLargeImage handler. The removeLargeImage handler sets the event
-// propagation back to bubble.
-var eventFlowCapture = false;
 
 // Event handler - click on image in gallery
 function showLargeImage(e) {
-    var imagePath = e.target.attributes.src.nodeValue;
+    // If a large preview image is already showing, allow event to bubble up
+    if (sessionStorage.getItem("largeImage") == null) {
+        console.log(e.target);
+        var imagePath = e.target.attributes.src.value;
+        console.log(imagePath);
 
-    // Select the clicked image for loading
-    largeImageDiv.firstElementChild.src = imagePath;
+        $('#image_show img').attr('src', imagePath);
+        $('#image_show').addClass('display_img').removeClass('display_none');
 
-    // Display large preview
-    largeImageDiv.className = "display_img";
-
-    // Stop event propagation
-    e.stopPropagation();
-
-    // Set the event flow to capture
-    eventFlowCapture = true;
+        sessionStorage.setItem("largeImage", imagePath);
+        // Stop event propagation
+        e.stopPropagation();
+    }
 }
 
 // Event handler - click anywhere on page to remove large preview
 function removeLargeImage(e) {
     // Hide large preview
-    largeImageDiv.className = "display_none";
-
-    // Stop event propagation
-    e.stopPropagation();
-
-    // Set the event flow to bubble
-    eventFlowCapture = false;
+    $('#image_show').addClass('display_none').removeClass('display_img');
+    sessionStorage.removeItem("largeImage");
 }
 
-// Loop over images 1-60 in the images folder
-for (var i = 1; i < 61; i++) {
-    // Build the image file path
-    var imageNumber = i.toString();
-    if (imageNumber.length == 1) {
-        imageNumber = "0" + imageNumber;
+$(function () {
+    // Fetch the name for sessionStorage, which would be set by the join page
+    var validName = sessionStorage.getItem("name");
+
+// If a valid name was fetched above, update the gallery tagline with the
+// name from the join page.
+    if (validName != null) {
+        var taglineText = $('.tagline').text();
+        $('.tagline').text(taglineText.replace("tiffany", validName));
     }
-    var imagePath = "images/pdxcg_" + imageNumber + ".jpg";
 
-    // Grab the section that holds the image gallery
-    $('#gallery').prepend('<li><img src =""/></li>');
-    $('#gallery li:first img').attr('src', imagePath);
-
-    //var newImageInCellStr = '<li><img src=" + imagePath + "/></li>';
-    //var newImageCell = document.createElement("li");
-    //var newImage = document.createElement("img");
-    //newImage.src = imagePath;
-    //newImageCell.appendChild(newImage);
-
-    // Add the list item to the gallery
-    //gallerySection.appendChild(newImageCell);
-
-    // Add event listener - click on an image
-    //newImage.addEventListener('click', function (e) {
-    //    showLargeImage(e);
-    //}, eventFlowCapture);
-
-}
-
-// Grab entire page
-var galleryPage = document.getElementsByTagName("html")[0];
-
-
-// Add event listener - click anywhere on page
-galleryPage.addEventListener('click', function (e) {
-    removeLargeImage(e);
-}, eventFlowCapture);
-
+    populateGallery();
+});
