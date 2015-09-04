@@ -1,0 +1,31 @@
+{
+  "inventory": {
+    "item": [
+      {
+        "name": "Hay",
+        "price": "15",
+        "numInStock": "4"
+      },
+      {
+        "name": "Kitten",
+        "price": "35",
+        "numInStock": "19"
+      },
+      {
+        "name": "Puppy",
+        "price": "10",
+        "numInStock": "1"
+      },
+      {
+        "name": "Ladder",
+        "price": "40",
+        "numInStock": "4"
+      },
+      {
+        "name": "Wood",
+        "price": "22",
+        "numInStock": "49"
+      }
+    ]
+  }
+}
