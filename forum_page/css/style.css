@@ -5,6 +5,10 @@
 body {
   width: 90%;
   margin: 10px auto;
+  background-image: url(../img/forum2_1x.jpg);
+  background-position: center;
+  background-repeat: repeat-y;
+  background-color: #FFF;
 }
 
 h1 {
@@ -16,6 +20,7 @@ header {
   padding: 10px;
   border-radius: 4px;
   margin-bottom: 15px;
+  opacity: 0.8;
 }
 
 .forum_title {
@@ -30,6 +35,24 @@ footer {
   padding: 10px;
   border-radius: 4px;
   margin-bottom: 15px;
+  opacity: 0.8;
+}
+
+.new_title {
+  width: 90%;
+  margin: 6px;
+}
+
+.new_body {
+  width: 90%;
+  height: 4em;
+  margin: 6px;
+  text: "Add body text";
+  vertical-align: text-top;
+}
+
+.add_button {
+  margin: 6px;
 }
 
 .post_form_cont {
@@ -37,6 +60,7 @@ footer {
   background-color: #FFF;
   border: 2px solid #999;
   border-radius: 2px;
+  padding: 10px;
 }
 
 main {
@@ -44,6 +68,7 @@ main {
   padding: 10px;
   border-radius: 4px;
   margin-bottom: 15px;
+  opacity: 0.8;
 }
 
 p {
