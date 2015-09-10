@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Forum</title>
-    <!-- <link rel="stylesheet" href="css/style.css" /> -->
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-<header><h1>Fake Forum</h1></header>
+<header><section class="forum_title"><h1>Fake Forum</h1></section></header>
 <main>
 </main>
+<footer>
+  <section class="post_form_cont">
+    <form id="new_post_form">
+      <input type="text" id="new_title" placeholder="Add post title" size="50"/><br/>
+      <input type="text" id="new_body" placeholder="Add post body" size="140" /><br/>
+      <input type="submit" id="add_button" value="Add" />
+    </form>
+  </section>
+</footer>
 <script type="text/javascript" src="js/jquery-1.11.3.js"></script>
 <script type="text/javascript" src="js/forum.js"></script>
 </body>
