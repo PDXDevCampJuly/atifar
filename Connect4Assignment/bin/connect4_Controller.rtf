@@ -1,0 +1,88 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1347\cocoasubrtf570
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\fs24 \cf0 start_game()\
+/* \
+This is the main function that runs how whole game\
+*/ \
+\
+\
+\
+\
+add_new_player(int)\
+/* \
+Prompt player for name and stores it in the players attribute that corresponds to the arg\
+*/\
+1. test_add_new_player_zero\
+provide mock input with \'93George\'94 for player 0 and check that the function updated player 0\'92s name\
+\
+2. test_add_new_player_one\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 provide mock input with \'93Moe\'94 for player 1 and check that the function updated player 1\'92s name\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 \
+switch_player()\
+/*\
+This function switches the player\'92s turn\
+*/\
+\
+1. test_switch_player()\
+Stored current active player. Check function causes the current active player to switch\
+\
+\
+check_connect_four():Bool\
+/*\
+Analyze the game_board and return True if a winning pattern is found, else return False.\
+*/\
+\
+1. test_connect_four_vertical\
+2.  test_connect_four_diagonal\
+3.  test_connect_four_horizontal\
+\
+perform_player_move(int)\
+/*\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 Prompts player to move and check if the move is to a full column. If the move is to a full column, then invalid move, re-prompt. If valid, updates game_board in Model\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 */\
+\
+1. test_perform_player_move_valid()\
+Pass in the active player (int)\
+Make a game_board with an open column\
+Mock standard input to select the column\
+Check game_board updated move\
+\
+2. test_perform_player_move_invalid()\
+Pass in the active player (int)\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 Make a game_board with a full column\
+Mock standard input to select the column\
+Check if function re-prompts\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 \
+check_draw(): Bool\
+/*\
+Checks the the get_token_count.  If the token count is 0, then return True, else return False\
+*/\
+\
+1. test_check_draw(): Bool\
+Set token count to 0 and check to return True\
+\
+2. test_check_draw_token_left()\
+Set token to 5 and check to return False\
+\
+\
+is_column_open(int): Bool \
+/*\
+Return True if the chosen column is open in the game_board, else returns False\
+*/\
+\
+1. test_is_column_open():Bool\
+Set the column to open and then the function should return True\
+\
+2. test_is column_full():Bool\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 Set the column to full and then the function should return False}

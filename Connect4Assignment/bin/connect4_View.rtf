@@ -1,0 +1,72 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1347\cocoasubrtf570
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww12660\viewh12200\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\fs24 \cf0 show_instrucitons() \
+/*\
+Print instructions on how to play the game\
+*/\
+Per Tiffany, unconditional static print functions don\'92t need testing.\
+\
+\
+declare_winner(int)\
+/*\
+Print the final message for the winner of the two players!\
+*/\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 Per Tiffany, unconditional static print functions don\'92t need testing.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 \
+\
+declare_draw()\
+/*\
+Print tie-game, nobody wins.\
+*/\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 Per Tiffany, unconditional static print functions don\'92t need testing.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 \
+\
+prompt_player_to_move(str, str):int\
+/*\
+Tell player with name and color passed in to make a move and return player\'92s move. If player inputs something other than an int between 0 and 6, re-prompt.\
+*/\
+1. test_show_to_move_prompt_valid_move\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 We mock the standard input and provide 3 as the user input.Check that function prints the correct string and returns 3.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 \
+2. test_show_to_move_prompt_invalid_move\
+We mock the standard input and provide \'93baad\'94, 7, 2 as the user input. Check that the player is re-prompted the first two times, then 2 is returned.\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 show_game_board(list of list of str)\
+/*\
+Shows the current view of the game_board. If arg is not a valid data structure (6 rows by 7 columns - list of list of string of 1 or 0 character) then a TypeError exception is raised.\
+*/\
+1. test_show_game_board_valid\
+Create sample game board. Check that the correct displayed message is output.\
+\
+2. test_show_game_board_invalid_dimensions\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 Create sample game board with 1 row by 3 columns of \'93r\'94. Check that the function raises a TypeError exception and displays a \'91expected 6 rows by 7 columns in game board\'92 message.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 3. test_show_game_board_invalid_table_contents\
+Create sample g\'98ame board with 6 row by 7 columns of \'93rowdy\'94. Check that the function raises a TypeError exception and displays a \'91expected maximum one character as game board table  entries\'92 message.\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 prompt_player_name()\
+/*\
+To either player print \'91What\'92s your name?\'92 and returns a name\
+*/\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 \
+1. test_player_name_valid()\
+  Mock input a \'93name\'94 and makes sure \'93name\'94 is returned\
+}

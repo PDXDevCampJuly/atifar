@@ -1,0 +1,105 @@
+class Model
+/* This is the model class for the Connect 4 game. It maintains the number of tokens left to play, the
+game board, the currently active player, and the names and colors of the players.
+*/
+
+get_token_count(): int
+/*return the value of token_count
+*/
+1. test_get_token_count
+Check that token_count equals the returned value after setting token_count to
+two different values
+
+
+decrement_token_count(): None
+/*decreases the token_count by 1
+*/
+1. test_decrement_token_count
+Check that the function subtracts one from the token_count.
+
+
+is_column_open(int): boolean
+/*
+Return True if the chosen column is open in the game_board or False if it is
+full. Return None when called with a non-existent column.
+*/
+1. test_is_open_column_non_full_column
+Set up game_board to have a non-full column. Check that True is returned.
+
+2. test_is_open_column_full_column
+Set up game_board to have a full column. Check that False is returned.
+
+3. test_is_open_column_non_existent
+Set up game_board. Check that None is returned when the argument points to an
+non-existent column.
+
+
+get_game_board(): list of list of string
+/*
+Returns the game_board data structure
+*/
+1. test_get_game_board
+Set up a game board. Check that the same data is returned.
+
+place_token(int, str): boolean
+/*
+Adds token passed in into the column that’s passed in. Return False
+(unsuccessful operation) if the selected column is full, otherwise return
+True. Return None when called with an invalid arg, such as int outside of the
+ range 0 to 6 or str being other than either “r” or “b”.
+*/
+
+1.  test_place_token_non_full_column
+Set up game_board to have a non full column. Check that token is  added to
+this column, and that True is returned.
+
+2.  test_place_token_full_column
+Set up game_board to have a full column. Check that token is  NOT added to
+this column, and that False is returned.
+
+3. test_place_token_non_existent
+Check that function returns None when called with an int that points to a
+non-existent column.
+
+4. test_place_token_invalid_arg
+Check that function returns None when called with a invalid color.
+
+
+get_player(int): list
+/*
+Returns the list of name and color for the player in the players data structure.
+ If the arg passed in is an int but doesn’t point to a player, then it raises
+ an index error exception. If arg passed in is not int then will raise an
+ invalid arg exception
+*/
+
+1. test_get_existing_player
+Set up players with given known content and check if the function returns the known content that the arg is pointing to
+
+2. test_get_non_existing_player
+Set up players with given known content and check if the function raises an index error exception
+
+3. test_get_player_invalid_arg
+Check if function raises an invalid arg exception when called with a string arg
+
+switch_active_player():
+/*
+This function switches the active player variable to the other player
+*/
+1. test_switch_active_player_zero
+Check the function changes the active_player attribute from 0 to 1
+
+2. test_switch_active_player_one
+Check the function changes the active_player attribute from 1 to 0
+
+
+get_active_player(): int
+/*
+Return the value of active_player
+*/
+1. test_active_player
+check that the return value is equal to the value of the active_player with more than one value
+
+
+
+

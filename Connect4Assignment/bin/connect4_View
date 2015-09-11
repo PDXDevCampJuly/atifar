@@ -1,0 +1,46 @@
+show_instrucitons()
+/*
+Print instructions on how to play the game
+*/
+Per Tiffany, unconditional static print functions don’t need testing.
+
+
+declare_winner(int)
+/*
+Print the final message for the winner of the two players!
+*/
+Per Tiffany, unconditional static print functions don’t need testing.
+
+
+declare_draw()
+/*
+Print tie-game, nobody wins.
+*/
+Per Tiffany, unconditional static print functions don’t need testing.
+
+
+prompt_player_to_move(str, str):int
+/*
+Tell player with name and color passed in to make a move and return player’s move. If player inputs something other than an int between 0 and 6, re-prompt.
+*/
+1. test_move_prompt_valid_move
+We mock the standard input and provide 3 as the user input.Check that function returns 3.
+
+2. test_move_prompt_invalid_move
+We mock the standard input and provide “baad”, 7, 2 as the user input. Check that the player is re-prompted the first two times, then 2 is returned.
+
+
+show_game_board(list of list of str)
+/*
+Shows the current view of the game_board.
+*/
+1. test_show_game_board_valid
+Create sample game board. Check that the correct displayed message is output.
+
+prompt_player_name()
+/*
+To either player print ‘What’s your name?’ and returns a name
+*/
+
+1. test_player_name_valid()
+  Mock input a “name” and makes sure “name” is returned

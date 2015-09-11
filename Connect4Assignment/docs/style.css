@@ -1,0 +1,27 @@
+/*
+Add the following link to the head section of all generated HTML files:
+<link rel="stylesheet" href="style.css">
+*/
+
+* {
+    border-radius: 2px;
+}
+
+html {
+    background-color: cornsilk;
+}
+
+body {
+    width: 90%;
+    margin: 10 auto;
+}
+
+a {
+    text-decoration: none;
+    background-color: lightyellow;
+    padding: 3px;
+}
+
+td {
+    padding: 10px;
+}
