@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>javapic</title>
+    <link rel="stylesheet" href="{% static "css/javapic.css" %}" />
+</head>
+<body>
+<main class="gallery_page">
+    <header>javapic <span class="tagline">develop something beautiful, tiffany</span></header>
+    <section id="gallery" class="gallery">
+        <!--<li><img src="images/pdxcg_01.jpg" /></li>-->
+    </section>
+    <div id="image_show" class="display_none">
+       <img src="{% static "../static/images/pdxcg_40.jpg" %}" />
+    </div>
+</main>
+
+<script type="text/javascript" src="{% static "js/gallery.js" %}"></script>
+
+</body>
+</html>

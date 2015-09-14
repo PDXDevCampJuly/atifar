@@ -1,9 +1,11 @@
 from django.conf.urls import include, url
-from forum import views
+from javapic import views
 
 urlpatterns = [
     # Examples:
     # url(r'^$', 'hello_world.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-    url(r'^$', views.forum, name='forum'),
+    url(r'^$', views.javapic, name='javapic'),
+    url(r'^join', views.join, name='join'),
+    url(r'^gallery', views.gallery, name='gallery'),
 ]
