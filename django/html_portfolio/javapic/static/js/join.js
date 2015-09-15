@@ -5,9 +5,6 @@
 // Grab the form element
 var joinForm = document.getElementById("signup");
 
-// Add an 'action' attribute to load the gallery page upon form submission
-joinForm.setAttribute("action", "gallery.html");
-
 // Grab the list of input element of the form (using querySelectorAll)
 var joinFormInputs = document.querySelectorAll("#signup input");
 
@@ -20,6 +17,9 @@ var submitButton = joinFormInputs[3];
 function validateInput(e) {
     var nameRE = /[a-z]+/i;
     var emailRE = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
+
+    // Prevent the form post operation
+    e.preventDefault();
 
     // Remove any previous popups
     var popups = document.getElementsByClassName("popup");
@@ -45,7 +45,6 @@ function validateInput(e) {
         newMsgBox.setAttribute("class", "popup");
 
         nameBox.focus();
-        e.preventDefault();
     }
 
     // Validate username - at least one alphabetic character (case insensitive)
@@ -65,7 +64,6 @@ function validateInput(e) {
         newMsgBox.setAttribute("class", "popup");
 
         usernameBox.focus();
-        e.preventDefault();
     }
 
     // Validate email
@@ -85,17 +83,18 @@ function validateInput(e) {
         newMsgBox.setAttribute("class", "popup");
 
         emailBox.focus();
-        e.preventDefault();
     }
 
     // When all form fields are valid, store name to use on gallery page
     else {
         sessionStorage.setItem('name', nameBox.value);
+        location.href="gallery.html";
     }
 }
 
 // Add event listener - click on submit button
 submitButton.addEventListener('click', function (e) {
     validateInput(e);
+
 }, false);
 

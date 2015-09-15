@@ -1,5 +1,4 @@
-from django.shortcuts import render, render_to_response
-from django.template.context_processors import csrf
+from django.shortcuts import render
 
 
 def javapic(request):
@@ -11,6 +10,4 @@ def join(request):
 
 
 def gallery(request):
-    c = {}
-    c.update(csrf(request))
-    return render_to_response('gallery.html', c)
+    return render(request, 'gallery.html')

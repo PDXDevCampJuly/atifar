@@ -4,7 +4,7 @@
 
 $(function () {
     // Add an 'action' attribute to load the gallery page upon form submission
-    $('#signup').attr('action', 'gallery.html');
+    //$('#signup').attr('action', 'gallery.html');
     // Add listener to catch form submission
     $('#signup').submit(function(e) {
         validateInput(e);
@@ -18,6 +18,9 @@ function validateInput(e) {
     var username = $('#signup input:eq(1)').val();
     var email = $('#signup input:eq(2)').val();
 
+    // Prevent the form post operation
+    e.preventDefault();
+
     // Remove any previous popups
     $('.popup').remove();
 
@@ -30,7 +33,6 @@ function validateInput(e) {
             'fontSize': '0.6em',
             'color': 'red'
         });
-        e.preventDefault();
     }
 
         // Validate username - at least one alphabetic character (case insensitive)
@@ -42,7 +44,7 @@ function validateInput(e) {
             'fontSize': '0.6em',
             'color': 'red'
         });
-        e.preventDefault();
+        //e.preventDefault();
      }
 
      // Validate email
@@ -54,12 +56,13 @@ function validateInput(e) {
             'fontSize': '0.6em',
             'color': 'red'
         });
-        e.preventDefault();
+        //e.preventDefault();
      }
 
     // When the name field is valid, store name to use on gallery page
     if (nameRE.test(name)) {
         sessionStorage.setItem('name', name);
+        location.href = "gallery.html";
     }
 }
 
