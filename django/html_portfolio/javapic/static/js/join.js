@@ -23,9 +23,14 @@ function validateInput(e) {
 
     // Remove any previous popups
     var popups = document.getElementsByClassName("popup");
-    for (i=0; i < popups.length; i++) {
+    console.log(popups);
+    for (i= popups.length - 1; i >= 0 ; i--) {
         joinForm.removeChild(popups[i]);
+        console.log("Removed popup");
     }
+
+    // Catch validation failure condition
+    var valid = true;
 
     // Validate name - at least one alphabetic character (case insensitive)
     if (!nameRE.test(nameBox.value)) {
@@ -44,11 +49,11 @@ function validateInput(e) {
         // Attach a class to the message box so it can be removed.
         newMsgBox.setAttribute("class", "popup");
 
-        nameBox.focus();
+        valid = false;
     }
 
     // Validate username - at least one alphabetic character (case insensitive)
-    else if (!nameRE.test(usernameBox.value)) {
+    if (!nameRE.test(usernameBox.value)) {
         // Create a new message box
         var newMsgBox = document.createElement("p");
         // Create the text node of the message
@@ -63,11 +68,11 @@ function validateInput(e) {
         // Attach a class to the message box so it can be removed.
         newMsgBox.setAttribute("class", "popup");
 
-        usernameBox.focus();
+        valid = false;
     }
 
     // Validate email
-    else if (!emailRE.test(emailBox.value)) {
+    if (!emailRE.test(emailBox.value)) {
         // Create a new message box
         var newMsgBox = document.createElement("p");
         // Create the text node of the message
@@ -82,11 +87,11 @@ function validateInput(e) {
         // Attach a class to the message box so it can be removed.
         newMsgBox.setAttribute("class", "popup");
 
-        emailBox.focus();
+        valid = false;
     }
 
     // When all form fields are valid, store name to use on gallery page
-    else {
+    if (valid) {
         sessionStorage.setItem('name', nameBox.value);
         location.href="gallery.html";
     }

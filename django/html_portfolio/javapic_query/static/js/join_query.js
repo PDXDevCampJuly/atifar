@@ -24,6 +24,9 @@ function validateInput(e) {
     // Remove any previous popups
     $('.popup').remove();
 
+    // Catch validation failure condition
+    var valid = true;
+
     // Validate name - at least one alphabetic character (case insensitive)
     if (!nameRE.test(name)) {
         // Create a new message paragraph
@@ -33,10 +36,11 @@ function validateInput(e) {
             'fontSize': '0.6em',
             'color': 'red'
         });
+        valid = false;
     }
 
-        // Validate username - at least one alphabetic character (case insensitive)
-     if (!nameRE.test(username)) {
+    // Validate username - at least one alphabetic character (case insensitive)
+    if (!nameRE.test(username)) {
         // Create a new message paragraph
         $('#signup input:eq(1)').after('<p class="popup">"Username cannot be empty and must consist of only letters."</p>');
         // Make the text inside message box red and smaller
@@ -44,11 +48,11 @@ function validateInput(e) {
             'fontSize': '0.6em',
             'color': 'red'
         });
-        //e.preventDefault();
-     }
+        valid = false;
+    }
 
-     // Validate email
-     if (!emailRE.test(email)) {
+    // Validate email
+    if (!emailRE.test(email)) {
         // Create a new message paragraph
         $('#signup input:eq(2)').after('<p class="popup">"Email must be of proper form."</p>');
         // Make the text inside message box red and smaller
@@ -56,13 +60,14 @@ function validateInput(e) {
             'fontSize': '0.6em',
             'color': 'red'
         });
-        //e.preventDefault();
-     }
+        valid = false;
+    }
 
-    // When the name field is valid, store name to use on gallery page
-    if (nameRE.test(name)) {
+    // When all fields are valid, store name to use on gallery page and load
+    // the gallery page
+    if (valid) {
         sessionStorage.setItem('name', name);
-        location.href = "gallery.html";
+        location.href = "gallery_query.html";
     }
 }
 

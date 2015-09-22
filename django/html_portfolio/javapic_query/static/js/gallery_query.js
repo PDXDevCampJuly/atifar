@@ -13,45 +13,40 @@ function populateGallery() {
         var imagePath = "../static/images/pdxcg_" + imageNumber + ".jpg";
 
         // Grab the section that holds the image gallery
-        //$('#gallery').prepend('<li><img src =""/></li>');
-        //$('#gallery li:first img').attr('src', imagePath);
         $('#gallery').append('<li><img src =""/></li>');
         $('#gallery li:last img').attr('src', imagePath);
 
     }
 
-    $('img').on('click', function (e) {
+    $('#gallery').on('click', function (e) {
         showLargeImage(e);
     });
 
-    $('body').on('click', function (e) {
+    //console.log($largeImageDiv.first()[0]);
+    $('div > img').on('click', function (e) {
+        e.stopPropagation();
+    });
+
+    $('#image_show').on('click', function (e) {
         removeLargeImage(e);
     });
 }
 
-
 // Event handler - click on image in gallery
 function showLargeImage(e) {
-    // If a large preview image is already showing, allow event to bubble up
-    if (sessionStorage.getItem("largeImage") == null) {
-        console.log(e.target);
         var imagePath = "../static/" + e.target.attributes.src.value;
-        console.log(imagePath);
 
         $('#image_show img').attr('src', imagePath);
         $('#image_show').addClass('display_img').removeClass('display_none');
 
-        sessionStorage.setItem("largeImage", imagePath);
         // Stop event propagation
         e.stopPropagation();
-    }
 }
 
 // Event handler - click anywhere on page to remove large preview
 function removeLargeImage(e) {
     // Hide large preview
     $('#image_show').addClass('display_none').removeClass('display_img');
-    sessionStorage.removeItem("largeImage");
 }
 
 $(function () {

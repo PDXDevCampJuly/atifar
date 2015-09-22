@@ -17,22 +17,15 @@ if(validName != null) {
 // Grab the section that holds the image gallery
 var gallerySection = document.getElementById("gallery");
 
-// Grab entire page
-var galleryPage = document.getElementsByTagName("html")[0];
-
 // Grab container for large image preview
 var largeImageDiv = document.getElementById("image_show");
-
-// The event flow on this page defaults to bubble. Once an image is shown in
-// enlarged preview, the event flow is set to capture by the showLargeImage
-// handler, so that the next click anywhere on the page is captured by the
-// removeLargeImage handler. The removeLargeImage handler sets the event
-// propagation back to bubble.
-var eventFlowCapture = false;
 
 // Event handler - click on image in gallery
 function showLargeImage(e) {
     var imagePath = "../static/" + e.target.attributes.src.nodeValue;
+
+    console.log(e.target);
+    console.log(imagePath);
 
     // Select the clicked image for loading
     largeImageDiv.firstElementChild.src = imagePath;
@@ -42,9 +35,6 @@ function showLargeImage(e) {
 
     // Stop event propagation
     e.stopPropagation();
-
-    // Set the event flow to capture
-    eventFlowCapture = true;
 }
 
 // Event handler - click anywhere on page to remove large preview
@@ -54,9 +44,6 @@ function removeLargeImage(e) {
 
     // Stop event propagation
     e.stopPropagation();
-
-    // Set the event flow to bubble
-    eventFlowCapture = false;
 }
 
 // Loop over images 1-60 in the images folder
@@ -76,15 +63,20 @@ for (var i = 1; i < 61; i++) {
 
     // Add the list item to the gallery
     gallerySection.appendChild(newImageCell);
-
-    // Add event listener - click on an image
-    newImage.addEventListener('click', function (e) {
-        showLargeImage(e);
-    }, eventFlowCapture);
 }
 
-// Add event listener - click anywhere on page
-galleryPage.addEventListener('click', function (e) {
+// Add event listener - click on a gallery image
+gallerySection.addEventListener('click', function (e) {
+    showLargeImage(e);
+});
+
+// Add event listener - click on large preview prevents its removal
+largeImageDiv.firstElementChild.addEventListener('click', function (e) {
+    e.stopPropagation();
+});
+
+// Add event listener - click outside of large preview removes it
+largeImageDiv.addEventListener('click', function (e) {
     removeLargeImage(e);
-}, eventFlowCapture);
+});
 
