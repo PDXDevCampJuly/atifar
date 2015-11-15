@@ -33,10 +33,14 @@ class Connect4View:
 
             print('{} Your move.'.format(player_name))
             move = input()
-            if int(move) > 6 or int(move) < 0:
+            try:
+                col = int(move)
+            except ValueError:
                 print('Invalid move. Try again!')
                 continue
-            return int(move)
+            if col <= 6 and col >= 0:
+                return col
+            print('Invalid move. Try again!')
 
     def show_game_board(self, game_board):
         """
